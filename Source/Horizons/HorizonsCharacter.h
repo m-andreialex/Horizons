@@ -15,6 +15,7 @@
 class UCameraComponent;
 class UPhysicsHandleComponent;
 class UHealthComponent;
+class UParkourComponent;
 
 class UInputAction;
 class UInputMappingContext;
@@ -54,6 +55,7 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true")) UCameraComponent* Camera;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true")) UPhysicsHandleComponent* PhysicsHandle;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true")) UHealthComponent* Health;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true")) UParkourComponent* ParkourComp;
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Actions", meta = (AllowPrivateAccess = "true")) UInputMappingContext* DMC;

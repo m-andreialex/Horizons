@@ -9,6 +9,7 @@
 #include "Kismet/KismetMaterialLibrary.h"
 
 #include "HealthComponent.h"
+#include "ParkourComponent.h"
 
 #include "InputActionValue.h"
 #include "EnhancedInputComponent.h"
@@ -31,6 +32,7 @@ AHorizonsCharacter::AHorizonsCharacter() {
 	Camera->bUsePawnControlRotation = true;
 
 	Health = CreateDefaultSubobject<UHealthComponent>(TEXT("Health"));
+	ParkourComp = CreateDefaultSubobject<UParkourComponent>(TEXT("ParkourComp"));
 	PhysicsHandle = CreateDefaultSubobject<UPhysicsHandleComponent>(TEXT("PhysicsHandle"));
 }
 
@@ -42,6 +44,7 @@ void AHorizonsCharacter::BeginPlay() {
 			Subsystem->AddMappingContext(DMC, 0);
 		}
 	}
+	ParkourComp->SetOwner(this);
 }
 
 void AHorizonsCharacter::Look(const FInputActionValue& Value) {
@@ -101,7 +104,12 @@ void AHorizonsCharacter::BeginJump() {
 		}
 	}
 
-	Jump();
+	if (ParkourComp->IsWallrunning()) {
+		ParkourComp->SetJumpHeight(GetCharacterMovement()->JumpZVelocity);
+		ParkourComp->WRJump();
+	} else {
+		Jump();
+	}
 }
 
 void AHorizonsCharacter::UpdateParallaxUI() {

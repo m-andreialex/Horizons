@@ -1,0 +1,36 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\ray\\documents\\unreal projects\\horizons\\plugins\\gamesubtitles\\source\\private\\widgets\\subtitledisplay.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\users\\ray\\documents\\unreal projects\\horizons\\intermediate\\build\\win64\\x64\\horizons\\shipping\\engine\\sharedpch.engine.project.valapi.cpp20.h.pch",
+        "Includes": [
+            "c:\\users\\ray\\documents\\unreal projects\\horizons\\plugins\\gamesubtitles\\intermediate\\build\\win64\\x64\\unrealgame\\shipping\\gamesubtitles\\definitions.gamesubtitles.h",
+            "c:\\users\\ray\\documents\\unreal projects\\horizons\\plugins\\gamesubtitles\\source\\public\\widgets\\subtitledisplay.h",
+            "d:\\engines\\ue_5.4\\engine\\source\\runtime\\umg\\public\\components\\widget.h",
+            "d:\\engines\\ue_5.4\\engine\\source\\runtime\\fieldnotification\\public\\fieldnotificationdeclaration.h",
+            "d:\\engines\\ue_5.4\\engine\\source\\runtime\\fieldnotification\\public\\ifieldnotificationclassdescriptor.h",
+            "d:\\engines\\ue_5.4\\engine\\source\\runtime\\fieldnotification\\public\\inotifyfieldvaluechanged.h",
+            "d:\\engines\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealgame\\inc\\fieldnotification\\uht\\inotifyfieldvaluechanged.generated.h",
+            "d:\\engines\\ue_5.4\\engine\\source\\runtime\\umg\\public\\components\\visual.h",
+            "d:\\engines\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealgame\\inc\\umg\\uht\\visual.generated.h",
+            "d:\\engines\\ue_5.4\\engine\\source\\runtime\\umg\\public\\components\\slatewrappertypes.h",
+            "d:\\engines\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealgame\\inc\\umg\\uht\\slatewrappertypes.generated.h",
+            "d:\\engines\\ue_5.4\\engine\\source\\runtime\\umg\\public\\slate\\widgettransform.h",
+            "d:\\engines\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealgame\\inc\\umg\\uht\\widgettransform.generated.h",
+            "d:\\engines\\ue_5.4\\engine\\source\\runtime\\umg\\public\\blueprint\\widgetnavigation.h",
+            "d:\\engines\\ue_5.4\\engine\\source\\runtime\\slatecore\\public\\types\\navigationmetadata.h",
+            "d:\\engines\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealgame\\inc\\umg\\uht\\widgetnavigation.generated.h",
+            "d:\\engines\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealgame\\inc\\umg\\uht\\widget.generated.h",
+            "c:\\users\\ray\\documents\\unreal projects\\horizons\\plugins\\gamesubtitles\\source\\public\\subtitledisplaysubsystem.h",
+            "c:\\users\\ray\\documents\\unreal projects\\horizons\\plugins\\gamesubtitles\\source\\public\\subtitledisplayoptions.h",
+            "c:\\users\\ray\\documents\\unreal projects\\horizons\\plugins\\gamesubtitles\\intermediate\\build\\win64\\unrealgame\\inc\\gamesubtitles\\uht\\subtitledisplayoptions.generated.h",
+            "c:\\users\\ray\\documents\\unreal projects\\horizons\\plugins\\gamesubtitles\\intermediate\\build\\win64\\unrealgame\\inc\\gamesubtitles\\uht\\subtitledisplaysubsystem.generated.h",
+            "c:\\users\\ray\\documents\\unreal projects\\horizons\\plugins\\gamesubtitles\\intermediate\\build\\win64\\unrealgame\\inc\\gamesubtitles\\uht\\subtitledisplay.generated.h",
+            "c:\\users\\ray\\documents\\unreal projects\\horizons\\plugins\\gamesubtitles\\source\\public\\widgets\\ssubtitledisplay.h",
+            "c:\\users\\ray\\documents\\unreal projects\\horizons\\plugins\\gamesubtitles\\intermediate\\build\\win64\\unrealgame\\inc\\gamesubtitles\\uht\\subtitledisplay.gen.cpp"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

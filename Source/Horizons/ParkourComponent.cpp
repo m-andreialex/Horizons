@@ -55,14 +55,14 @@ void UParkourComponent::WRUpdate() {
 			bWRLeft = false;
 			Character->GetCharacterMovement()->GravityScale = FMath::FInterpTo(Character->GetCharacterMovement()->GravityScale, WRTargetGrav, GetWorld()->GetDeltaSeconds(), 10.0f);
 		} else if (bWRRight) {
-			EndWR(0.35f);
+			EndWR(1.0f);
 		} else if (WRMove(Character->GetActorLocation(), LeftEndPoint, 1.0f)) {
 			bIsOnWall = true;
 			bWRRight = false;
 			bWRLeft = bIsOnWall;
 			Character->GetCharacterMovement()->GravityScale = FMath::FInterpTo(Character->GetCharacterMovement()->GravityScale, WRTargetGrav, GetWorld()->GetDeltaSeconds(), 10.0f);
 		} else {
-			EndWR(0.35f);
+			EndWR(1.0f);
 		};
 	}
 }
@@ -124,6 +124,7 @@ FVector UParkourComponent::OwnerToWallVector() {
 
 void UParkourComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	CameraTick();
 }
 
 void UParkourComponent::CameraTick() {
@@ -138,7 +139,7 @@ void UParkourComponent::CameraTick() {
 
 void UParkourComponent::CameraTilt(float X) {
 	FRotator ControllerRot = Character->GetController()->GetControlRotation();
-	Character->GetController()->SetControlRotation(FMath::RInterpTo(ControllerRot, FRotator(X, ControllerRot.Pitch, ControllerRot.Yaw), GetWorld()->GetDeltaSeconds(), 10.0f));
+	Character->GetController()->SetControlRotation(FMath::RInterpTo(ControllerRot, FRotator(ControllerRot.Pitch, ControllerRot.Yaw, X), GetWorld()->GetDeltaSeconds(), 10.0f));
 }
 
 void UParkourComponent::SetOwner(ACharacter* Owner) {

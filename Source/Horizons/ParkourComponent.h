@@ -56,6 +56,6 @@ private:
 	UPROPERTY(EditAnywhere) float WRSpeed = 850.0f;
 	UPROPERTY(EditAnywhere) float WRTargetGrav = 0.25f;
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true")) float DefaultGrav;
-	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true")) float WRJumpHeight;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true")) float WRJumpOffForce = 300.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true")) float WRJumpHeight = 600.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true")) float WRJumpOffForce = 400.0f;
 };

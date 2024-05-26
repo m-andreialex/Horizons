@@ -129,7 +129,6 @@ void AHorizonsCharacter::BeginJump() {
 	}
 
 	if (ParkourComp->IsWallrunning()) {
-		ParkourComp->SetJumpHeight(GetCharacterMovement()->JumpZVelocity);
 		ParkourComp->OnJumping();
 	} else {
 		Jump();

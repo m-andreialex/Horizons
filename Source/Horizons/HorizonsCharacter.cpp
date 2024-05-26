@@ -4,6 +4,9 @@
 #include "HorizonsCharacter.h"
 
 #include "Camera/CameraComponent.h"
+#include "Components/SpotLightComponent.h"
+#include "GameFramework/SpringArmComponent.h"
+
 #include "Components/CapsuleComponent.h"
 #include "PhysicsEngine/PhysicsHandleComponent.h"
 #include "Kismet/KismetMaterialLibrary.h"
@@ -30,6 +33,27 @@ AHorizonsCharacter::AHorizonsCharacter() {
 	Camera->SetupAttachment(GetCapsuleComponent());
 	Camera->SetRelativeLocation(FVector(-10.0f, 0.0f, 70.0f));
 	Camera->bUsePawnControlRotation = true;
+
+	MainSpring = CreateDefaultSubobject<USpringArmComponent>(TEXT("MainSpring"));
+	MainSpring->SetupAttachment(Camera);
+	MainSpring->TargetArmLength = 0.0f;
+	MainSpring->bEnableCameraRotationLag = true;
+	MainSpring->CameraRotationLagSpeed = 12.0f;
+
+	InnerLight = CreateDefaultSubobject<USpotLightComponent>(TEXT("InnerLight"));
+	InnerLight->SetupAttachment(MainSpring);
+	InnerLight->AttenuationRadius = 2500.0f;
+	InnerLight->InnerConeAngle = 16.0f;
+	InnerLight->OuterConeAngle = 24.0f;
+	InnerLight->SetVisibility(false);
+
+	OuterLight = CreateDefaultSubobject<USpotLightComponent>(TEXT("OuterLight"));
+	OuterLight->SetupAttachment(MainSpring);
+	OuterLight->Intensity = 2500.0f;
+	OuterLight->AttenuationRadius = 2500.0f;
+	OuterLight->InnerConeAngle = 32.0f;
+	OuterLight->OuterConeAngle = 48.0f;
+	OuterLight->SetVisibility(false);
 
 	Health = CreateDefaultSubobject<UHealthComponent>(TEXT("Health"));
 	ParkourComp = CreateDefaultSubobject<UParkourComponent>(TEXT("ParkourComp"));
@@ -106,10 +130,24 @@ void AHorizonsCharacter::BeginJump() {
 
 	if (ParkourComp->IsWallrunning()) {
 		ParkourComp->SetJumpHeight(GetCharacterMovement()->JumpZVelocity);
-		ParkourComp->WRJump();
+		ParkourComp->OnJumping();
 	} else {
 		Jump();
 	}
+}
+
+void AHorizonsCharacter::UseFlashlight() {
+	if (bIsUsingFlashlight) {
+		SetFlashlightVis(false);
+	} else {
+		SetFlashlightVis(true);
+	}
+}
+
+void AHorizonsCharacter::SetFlashlightVis(bool IsVisible) {
+	InnerLight->SetVisibility(IsVisible);
+	OuterLight->SetVisibility(IsVisible);
+	bIsUsingFlashlight = IsVisible;
 }
 
 void AHorizonsCharacter::UpdateParallaxUI() {
@@ -147,6 +185,8 @@ void AHorizonsCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 
 		EIC->BindAction(RunAction, ETriggerEvent::Started, this, &AHorizonsCharacter::Run);
 		EIC->BindAction(RunAction, ETriggerEvent::None, this, &AHorizonsCharacter::StopRunning);
+
+		EIC->BindAction(FlashlightAction, ETriggerEvent::Triggered, this, &AHorizonsCharacter::UseFlashlight);
 	}
 }
 

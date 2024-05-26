@@ -13,6 +13,9 @@
 #include "HorizonsCharacter.generated.h"
 
 class UCameraComponent;
+class USpotLightComponent;
+class USpringArmComponent;
+
 class UPhysicsHandleComponent;
 class UHealthComponent;
 class UParkourComponent;
@@ -44,15 +47,23 @@ protected:
 	virtual void BeginPlay() override;
 	void Look(const FInputActionValue& Value);
 	void Move(const FInputActionValue& Value);
+
 	void Run();
 	void StopRunning();
 	void BeginJump();
+
+	void UseFlashlight();
+	void SetFlashlightVis(bool IsVisible);
 
 private:
 	UFUNCTION() void UpdateParallaxUI();
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Parallax", meta = (AllowPrivateAccess = "true")) UMaterialParameterCollection* ParallaxCollection;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true")) UCameraComponent* Camera;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true")) USpringArmComponent* MainSpring;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true")) USpotLightComponent* OuterLight;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true")) USpotLightComponent* InnerLight;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true")) UPhysicsHandleComponent* PhysicsHandle;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true")) UHealthComponent* Health;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true")) UParkourComponent* ParkourComp;
@@ -63,6 +74,7 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Actions", meta = (AllowPrivateAccess = "true")) UInputAction* MoveAction;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Actions", meta = (AllowPrivateAccess = "true")) UInputAction* JumpAction;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Actions", meta = (AllowPrivateAccess = "true")) UInputAction* RunAction;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Actions", meta = (AllowPrivateAccess = "true")) UInputAction* FlashlightAction;
 
 private:
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Speed", meta = (AllowPrivateAccess = "true")) float Sensitivity = 45.0f;
@@ -74,6 +86,7 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Speed", meta = (AllowPrivateAccess = "true")) float GrabDistance = 256.0f;
 
 	UPROPERTY() bool bIsCrouching;
+	UPROPERTY() bool bIsUsingFlashlight;
 
 	UPROPERTY() float DeltaSeconds;
 

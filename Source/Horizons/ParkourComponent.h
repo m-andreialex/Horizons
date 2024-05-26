@@ -38,11 +38,11 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
-	UPROPERTY(BlueprintReadWrite) ACharacter* Character;
+	UPROPERTY() ACharacter* Character;
 
 public:
 	UFUNCTION(BlueprintPure) void GetWREndPoints(FVector& Right, FVector& Left);
-	UFUNCTION(BlueprintPure) bool IsValidWallVector(FVector InVec, FVector& OutVec);
+	UFUNCTION(BlueprintPure) bool IsValidWallVector(FVector InVec);
 	UFUNCTION(BlueprintPure) FVector OwnerToWallVector();
 
 private:
@@ -50,10 +50,9 @@ private:
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true")) bool bIsOnWall = false;
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true")) bool bWRLeft = false;
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true")) bool bWRRight = false;
-	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true")) bool bCanWR;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true")) bool bCanWR = true;
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true")) bool bIsWRSuppressed;
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true")) FVector WRNormal;
-	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true")) float WRDirection;
 	UPROPERTY(EditAnywhere) float WRSpeed = 850.0f;
 	UPROPERTY(EditAnywhere) float WRTargetGrav = 0.25f;
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true")) float DefaultGrav;

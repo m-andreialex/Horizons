@@ -4,8 +4,10 @@
 #include "ParkourComponent.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 FTimerHandle SuppressTimeHandle;
+FTimerHandle UpdateTimeHandle;
 
 UParkourComponent::UParkourComponent() {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
@@ -51,16 +53,17 @@ void UParkourComponent::WRUpdate() {
 			bIsOnWall = true;
 			bWRRight = bIsOnWall;
 			bWRLeft = false;
+			Character->GetCharacterMovement()->GravityScale = FMath::FInterpTo(Character->GetCharacterMovement()->GravityScale, WRTargetGrav, GetWorld()->GetDeltaSeconds(), 10.0f);
 		} else if (bWRRight) {
 			EndWR(0.35f);
 		} else if (WRMove(Character->GetActorLocation(), LeftEndPoint, 1.0f)) {
 			bIsOnWall = true;
 			bWRRight = false;
 			bWRLeft = bIsOnWall;
+			Character->GetCharacterMovement()->GravityScale = FMath::FInterpTo(Character->GetCharacterMovement()->GravityScale, WRTargetGrav, GetWorld()->GetDeltaSeconds(), 10.0f);
 		} else {
 			EndWR(0.35f);
 		};
-		Character->GetCharacterMovement()->GravityScale = FMath::FInterpTo(Character->GetCharacterMovement()->GravityScale, WRTargetGrav, GetWorld()->GetDeltaSeconds(), 10.0f);
 	}
 }
 
@@ -74,9 +77,9 @@ bool UParkourComponent::WRMove(FVector Start, FVector End, float Direction) {
 	bool bDidItHit = GetWorld()->LineTraceSingleByChannel(Result, Start, End, ECC_Visibility, TraceParams);
 
 	if (Result.IsValidBlockingHit()) {
-		if (Character->GetCharacterMovement()->IsFalling() && IsValidWallVector(Result.Normal, WRNormal)) {
+		if (Character->GetCharacterMovement()->IsFalling() && IsValidWallVector(Result.Normal)) {
 			Character->LaunchCharacter(OwnerToWallVector(), false, false);
-			Character->LaunchCharacter(WRNormal.Cross(FVector(0.0f, 0.0f, 1.0f)) * (WRSpeed * WRDirection), true, !bWRGravity);
+			Character->LaunchCharacter(WRNormal.Cross(FVector(0.0f, 0.0f, 1.0f)) * (WRSpeed * Direction), true, !bWRGravity);
 			return true;
 		}
 	}
@@ -90,9 +93,15 @@ void UParkourComponent::SetDefaultGrav(float Gravity) {
 
 void UParkourComponent::BeginPlay() {
 	Super::BeginPlay();
+	Character = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
+
 	if (IsValid(Character)) {
 		DefaultGrav = Character->GetCharacterMovement()->GravityScale;
-	}
+		GetWorld()->GetTimerManager().SetTimer(UpdateTimeHandle, this, &UParkourComponent::WRUpdate, 0.02f, true);
+		UE_LOG(LogTemp, Warning, TEXT("Character is valid, begin Update function."));
+	} else {
+		UE_LOG(LogTemp, Warning, TEXT("Character is not valid, halt Parkour component initialization."));
+	};
 }
 
 void UParkourComponent::GetWREndPoints(FVector& Right, FVector& Left) {
@@ -100,13 +109,13 @@ void UParkourComponent::GetWREndPoints(FVector& Right, FVector& Left) {
 	Left = Character->GetActorLocation() + Character->GetActorRightVector() * -75.0f + Character->GetActorForwardVector() * -35.0f;
 }
 
-bool UParkourComponent::IsValidWallVector(FVector InVec, FVector& OutVec) {
+bool UParkourComponent::IsValidWallVector(FVector InVec) {
 	if (InVec.Z > -0.52f && InVec.Z < 0.52) {
+		WRNormal = InVec;
 		return true;
 	} else {
 		return false;
 	}
-	OutVec = InVec;
 }
 
 FVector UParkourComponent::OwnerToWallVector() {
@@ -141,11 +150,12 @@ void UParkourComponent::SetJumpHeight(float Height) {
 }
 
 void UParkourComponent::OnLanding() {
-	WREnd(0.0f);
+	EndWR(0.0f);
 	bIsWRSuppressed = false;
 }
 
 void UParkourComponent::OnJumping() {
 	WRJump();
+	UE_LOG(LogTemp, Warning, TEXT("OnJumping from Parkour executed."));
 }
 

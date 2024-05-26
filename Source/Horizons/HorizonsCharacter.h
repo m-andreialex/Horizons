@@ -43,13 +43,15 @@ public:
 		}
 	};
 
+	UFUNCTION(BlueprintCallable) void SetIsCrouching(bool Crouch) { bIsCrouching = Crouch; };
+
 protected:
 	virtual void BeginPlay() override;
 	void Look(const FInputActionValue& Value);
 	void Move(const FInputActionValue& Value);
 
 	void Run();
-	void StopRunning();
+	UFUNCTION(BlueprintCallable) void StopRunning();
 	void BeginJump();
 
 	void UseFlashlight();

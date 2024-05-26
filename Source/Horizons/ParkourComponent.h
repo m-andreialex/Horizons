@@ -47,16 +47,16 @@ public:
 
 private:
 	UPROPERTY(EditAnywhere) bool bWRGravity = true;
-	UPROPERTY() bool bIsOnWall = false;
-	UPROPERTY() bool bWRLeft = false;
-	UPROPERTY() bool bWRRight = false;
-	UPROPERTY() bool bCanWR;
-	UPROPERTY() bool bIsWRSuppressed;
-	UPROPERTY() FVector WRNormal;
-	UPROPERTY() float WRDirection;
+	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true")) bool bIsOnWall = false;
+	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true")) bool bWRLeft = false;
+	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true")) bool bWRRight = false;
+	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true")) bool bCanWR;
+	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true")) bool bIsWRSuppressed;
+	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true")) FVector WRNormal;
+	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true")) float WRDirection;
 	UPROPERTY(EditAnywhere) float WRSpeed = 850.0f;
 	UPROPERTY(EditAnywhere) float WRTargetGrav = 0.25f;
-	UPROPERTY() float DefaultGrav;
-	UPROPERTY() float WRJumpHeight;
-	UPROPERTY(EditAnywhere) float WRJumpOffForce = 300.0f;
+	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true")) float DefaultGrav;
+	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true")) float WRJumpHeight;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true")) float WRJumpOffForce = 300.0f;
 };

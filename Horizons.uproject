@@ -37,6 +37,10 @@
 		{
 			"Name": "GameSubtitles",
 			"Enabled": true
+		},
+		{
+			"Name": "OpenImageDenoise",
+			"Enabled": false
 		}
 	]
 }

@@ -60,6 +60,20 @@ AHorizonsCharacter::AHorizonsCharacter() {
 	PhysicsHandle = CreateDefaultSubobject<UPhysicsHandleComponent>(TEXT("PhysicsHandle"));
 }
 
+void AHorizonsCharacter::AddXP(int Amount) {
+	XP = XP + Amount;
+	if (XP >= ReqXP) {
+		AddLevel(1);
+
+		XP = XP - ReqXP;
+		SetReqXP(ReqXP * 1.5f);
+	}
+}
+
+void AHorizonsCharacter::AddLevel(int Amount) {
+	Level = Level + Amount;
+}
+
 // Called when the game starts or when spawned
 void AHorizonsCharacter::BeginPlay() {
 	Super::BeginPlay();
@@ -69,6 +83,9 @@ void AHorizonsCharacter::BeginPlay() {
 		}
 	}
 	ParkourComp->SetOwner(this);
+
+	Level = 1;
+	ReqXP = 128;
 }
 
 void AHorizonsCharacter::Look(const FInputActionValue& Value) {

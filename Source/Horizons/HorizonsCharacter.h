@@ -43,7 +43,16 @@ public:
 		}
 	};
 
+	UFUNCTION(BlueprintPure) int GetXP() { return XP; }
+	UFUNCTION(BlueprintPure) int GetReqXP() { return ReqXP; }
+	UFUNCTION(BlueprintPure) int GetPlayerLevel() { return Level; }
+	UFUNCTION(BlueprintPure) float GetFearLevel() { return FearLevel; }
+	UFUNCTION(BlueprintPure) int GetCurrency() { return Currency; }
+
 	UFUNCTION(BlueprintCallable) void SetIsCrouching(bool Crouch) { bIsCrouching = Crouch; };
+	UFUNCTION(BlueprintCallable) void AddXP(int Amount);
+	UFUNCTION() void SetReqXP(int NewReqXP) { ReqXP = NewReqXP; }
+	UFUNCTION(BlueprintCallable) void AddLevel(int Amount);
 
 protected:
 	virtual void BeginPlay() override;
@@ -100,4 +109,12 @@ private:
 	UPROPERTY() FRotator CameraRot;
 	UPROPERTY() float MinMaxYawRate = 2.0f;
 	UPROPERTY() float MinMaxPitchRate = 12.0f;
+
+	UPROPERTY() int JumpCount;
+
+	UPROPERTY() float FearLevel = 0.0f;
+	UPROPERTY() int Level = 0;
+	UPROPERTY() int XP = 0;
+	UPROPERTY() int ReqXP = 0;
+	UPROPERTY() int Currency = 0;
 };

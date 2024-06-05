@@ -31,7 +31,6 @@ void UParkourComponent::EndWR(float ResetTime) {
 		bIsOnWall = false;
 		bWRRight = false;
 		bWRLeft = false;
-		bCanWR = true;
 		Character->GetCharacterMovement()->GravityScale = DefaultGrav;
 		SuppressWR(ResetTime);
 	}

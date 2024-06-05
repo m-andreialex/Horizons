@@ -62,11 +62,16 @@ AHorizonsCharacter::AHorizonsCharacter() {
 
 void AHorizonsCharacter::AddXP(int Amount) {
 	XP = XP + Amount;
+	CheckXP();
+}
+
+void AHorizonsCharacter::CheckXP() {
 	if (XP >= ReqXP) {
 		AddLevel(1);
 
 		XP = XP - ReqXP;
 		SetReqXP(ReqXP * 1.5f);
+		CheckXP();
 	}
 }
 

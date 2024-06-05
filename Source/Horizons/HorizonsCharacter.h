@@ -51,6 +51,7 @@ public:
 
 	UFUNCTION(BlueprintCallable) void SetIsCrouching(bool Crouch) { bIsCrouching = Crouch; };
 	UFUNCTION(BlueprintCallable) void AddXP(int Amount);
+	UFUNCTION() void CheckXP();
 	UFUNCTION() void SetReqXP(int NewReqXP) { ReqXP = NewReqXP; }
 	UFUNCTION(BlueprintCallable) void AddLevel(int Amount);
 
